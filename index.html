@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TaskFlow - Your Productivity Companion</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="container">
+        <header class="header">
+            <div class="header-title">
+                <h1>TaskFlow</h1>
+                <p class="tagline">Your Productivity Companion</p>
+            </div>
+            <div class="header-actions">
+                <button class="btn-icon" id="themeToggle" title="Toggle Dark Mode">🌙</button>
+                <button class="btn-icon" id="shortcutsBtn" title="Keyboard Shortcuts">⌨️</button>
+                <button class="btn-icon" id="menuBtn" title="More Options">⋯</button>
+                <button class="btn btn-primary" id="addBtn">+ Add New</button>
+            </div>
+        </header>
+
+        <!-- Quick Actions Menu -->
+        <div id="quickMenu" class="quick-menu" style="display: none;">
+            <button class="menu-item" id="exportBtn">📥 Export Data</button>
+            <button class="menu-item" id="importBtn">📤 Import Data</button>
+            <button class="menu-item" id="markAllCompleteBtn">✓ Mark All Complete</button>
+            <button class="menu-item" id="clearCompletedBtn">🗑️ Clear Completed</button>
+            <button class="menu-item" id="statsViewBtn">📊 View Statistics</button>
+        </div>
+
+        <div class="controls">
+            <div class="search-container">
+                <input type="text" id="searchInput" placeholder="Search tasks and ideas..." class="search-input">
+            </div>
+            <div class="filter-container">
+                <select id="categoryFilter" class="filter-select">
+                    <option value="">All Categories</option>
+                </select>
+                <select id="sortSelect" class="filter-select">
+                    <option value="date">Sort by Date</option>
+                    <option value="priority">Sort by Priority</option>
+                    <option value="category">Sort by Category</option>
+                    <option value="title">Sort by Title</option>
+                </select>
+            </div>
+        </div>
+
+        <div class="tabs">
+            <button class="tab-btn active" data-period="today">Today</button>
+            <button class="tab-btn" data-period="week">This Week</button>
+            <button class="tab-btn" data-period="month">This Month</button>
+            <button class="tab-btn" data-period="later">Later</button>
+            <button class="tab-btn" data-period="all">All</button>
+        </div>
+
+        <div class="stats-bar">
+            <div class="stats-content">
+                <span id="statsText">Loading...</span>
+                <div class="progress-container">
+                    <div class="progress-bar">
+                        <div class="progress-fill" id="progressFill"></div>
+                    </div>
+                    <span class="progress-text" id="progressText">0%</span>
+                </div>
+            </div>
+        </div>
+
+        <main class="main-content">
+            <div id="itemsList" class="items-list">
+                <!-- Items will be dynamically inserted here -->
+            </div>
+            <div id="emptyState" class="empty-state" style="display: none;">
+                <p>No items found. Click "+ Add New" to get started!</p>
+            </div>
+        </main>
+    </div>
+
+    <!-- Modal for adding/editing items -->
+    <div id="itemModal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2 id="modalTitle">Add New Item</h2>
+                <button class="close-btn" id="closeModal">&times;</button>
+            </div>
+            <form id="itemForm">
+                <input type="hidden" id="itemId">
+                
+                <div class="form-group">
+                    <label for="itemType">Type</label>
+                    <select id="itemType" required>
+                        <option value="task">Task</option>
+                        <option value="idea">Idea</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label for="itemTitle">Title *</label>
+                    <input type="text" id="itemTitle" required placeholder="Enter title...">
+                </div>
+
+                <div class="form-group">
+                    <label for="itemDescription">Description</label>
+                    <textarea id="itemDescription" rows="4" placeholder="Add details, notes, or context..."></textarea>
+                </div>
+
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="itemDueDate">Due Date</label>
+                        <input type="datetime-local" id="itemDueDate">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="itemPriority">Priority</label>
+                        <select id="itemPriority">
+                            <option value="">None</option>
+                            <option value="high">High</option>
+                            <option value="medium">Medium</option>
+                            <option value="low">Low</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="itemCategory">Category</label>
+                        <input type="text" id="itemCategory" placeholder="e.g., Work, Personal" list="categoryList">
+                        <datalist id="categoryList"></datalist>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="itemStatus">Status</label>
+                        <select id="itemStatus">
+                            <option value="pending">Pending</option>
+                            <option value="in-progress">In Progress</option>
+                            <option value="completed">Completed</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="form-actions">
+                    <button type="button" class="btn btn-secondary" id="cancelBtn">Cancel</button>
+                    <button type="submit" class="btn btn-primary">Save</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- Toast Notification Container -->
+    <div id="toastContainer" class="toast-container"></div>
+
+    <!-- Keyboard Shortcuts Modal -->
+    <div id="shortcutsModal" class="modal">
+        <div class="modal-content modal-small">
+            <div class="modal-header">
+                <h2>⌨️ Keyboard Shortcuts</h2>
+                <button class="close-btn" id="closeShortcutsModal">&times;</button>
+            </div>
+            <div class="shortcuts-list">
+                <div class="shortcut-item">
+                    <kbd>Ctrl</kbd> + <kbd>K</kbd>
+                    <span>Add new item</span>
+                </div>
+                <div class="shortcut-item">
+                    <kbd>Esc</kbd>
+                    <span>Close modal</span>
+                </div>
+                <div class="shortcut-item">
+                    <kbd>Ctrl</kbd> + <kbd>E</kbd>
+                    <span>Export data</span>
+                </div>
+                <div class="shortcut-item">
+                    <kbd>Ctrl</kbd> + <kbd>I</kbd>
+                    <span>Import data</span>
+                </div>
+                <div class="shortcut-item">
+                    <kbd>?</kbd>
+                    <span>Show shortcuts</span>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Import File Input (hidden) -->
+    <input type="file" id="importFileInput" accept=".json" style="display: none;">
+
+    <script src="storage.js"></script>
+    <script src="app.js"></script>
+    <script src="utils.js"></script>
+</body>
+</html>

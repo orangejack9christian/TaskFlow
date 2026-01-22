@@ -1,0 +1,34 @@
+# OS files
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# Editor files
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# Logs
+*.log
+
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+venv/
+env/
+
+# Don't ignore the actual app files
+!index.html
+!styles.css
+!app.js
+!storage.js
+!utils.js
+!server.py
+!*.bat
+!*.ps1
+!*.md

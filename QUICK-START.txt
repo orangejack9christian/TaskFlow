@@ -1,0 +1,53 @@
+═══════════════════════════════════════════════════════════════
+  TaskFlow - Quick Start Guide
+═══════════════════════════════════════════════════════════════
+
+TO ACCESS FROM OTHER DEVICES ON YOUR NETWORK:
+───────────────────────────────────────────────────────────────
+
+1. Double-click: start-server.bat
+   (or right-click start-server.ps1 → Run with PowerShell)
+
+2. A window will open showing:
+   - Your local IP address
+   - Instructions for accessing
+
+3. On your phone/tablet/other computer:
+   - Make sure it's on the same Wi-Fi network
+   - Open a web browser
+   - Type: http://[YOUR-IP]:8000
+     (Replace [YOUR-IP] with the IP shown in the server window)
+
+4. That's it! TaskFlow is now accessible from any device!
+
+───────────────────────────────────────────────────────────────
+
+TO DEPLOY ONLINE (Access from anywhere in the world):
+───────────────────────────────────────────────────────────────
+
+See DEPLOY.md for instructions on:
+  • GitHub Pages (free, recommended)
+  • Netlify (super easy)
+  • Vercel (one command)
+
+───────────────────────────────────────────────────────────────
+
+TROUBLESHOOTING:
+───────────────────────────────────────────────────────────────
+
+Can't access from other devices?
+  → Make sure all devices are on the same Wi-Fi
+  → Check Windows Firewall settings
+  → Try temporarily disabling firewall to test
+
+Port already in use?
+  → Close other applications using port 8000
+  → Or edit server.py and change PORT to another number
+
+Python not found?
+  → Download from python.org
+  → Make sure to check "Add Python to PATH" during install
+
+───────────────────────────────────────────────────────────────
+
+Need more help? Check DEPLOY.md for detailed instructions!
