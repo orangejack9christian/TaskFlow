@@ -1,0 +1,40 @@
+FILES TO UPLOAD TO GITHUB
+==========================
+
+CORE FILES (Required):
+- index.html
+- styles.css
+- app.js
+- storage.js
+- utils.js
+
+FEATURE MODULES (All new features):
+- calendar.js
+- themes.js
+- undo-redo.js
+- projects.js
+- templates.js
+- recurrence.js
+- time-tracking.js
+- statistics.js
+- notifications.js
+- sounds.js
+- focus-mode.js
+
+SERVER FILES (Optional - for local hosting):
+- server.py
+- start-server.bat
+- start-server.ps1
+
+DOCUMENTATION (Optional):
+- README.md
+- DEPLOY.md
+- DEPLOY-STEP-BY-STEP.md
+- QUICK-START.txt
+- UPDATE-GITHUB.md
+- FILES-TO-UPLOAD.txt (this file)
+
+CONFIG FILES (Important):
+- .gitignore
+
+TOTAL: ~20 files
